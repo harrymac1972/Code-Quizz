@@ -1,3 +1,7 @@
+* { 
+    font-family: sans-serif;
+}
+
 
 :root {
     --purple2: #bd60e7;
@@ -9,8 +13,32 @@ header {
     margin: 2rem;
 }
 
-#high-scores-btn {
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main button{
+    margin: 3rem;
+    color:white;
+    background-color: var(--purple2);
+    border-radius: .5rem;
+    font-size: large;
+    padding: .75rem 1.5rem;
+    border: none;
+}
+
+
+p {
+    line-height: 0rem;
+    font-weight: bold;
+}
+
+#high-scores-link {
     color: var(--purple2);
     font-weight: bolder;
     text-decoration: none;
 }
+
