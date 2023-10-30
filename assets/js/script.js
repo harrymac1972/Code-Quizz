@@ -1,19 +1,28 @@
 
 var questionObjsArr = [{
-    "question":"What's the name of the game?",
-    "answers":["Pool",
-                "Bingo",
-                "Tennis",
-                "Hockey"
+    "question":"A variable is a ____?",
+    "answers":["Condition",
+                "Element",
+                "Algorithm",
+                "Container"
             ],
     "correct":3
     },
     {
-    "question":"People at Party?",
-    "answers":["Bart",
-                "Leanne",
-                "Kat",
-                "Mike"
+    "question":"A variable declared in a function is considered?",
+    "answers":["Numeric",
+                "a String",
+                "Local",
+                "Global"
+            ],
+    "correct":2
+    },
+    {
+    "question":"The skeleton of a web-site is the?",
+    "answers":["CSS",
+                "Javascript",
+                "HTML",
+                "W3"
             ],
     "correct":2
     }
@@ -28,6 +37,8 @@ var mainEl = document.querySelector("#main");
 var mainTitle = document.querySelector("#main-title");
 var rulesText = document.querySelector("#rules-text");
 var questionIndex = 0;
+var questionObj = {};
+answersArr = [];
 
 startQuizBtn.addEventListener("click",interrogate);
 
@@ -51,7 +62,7 @@ function interrogate(){
 }
 
 function renderQuestion(){
-    var questionObj = getQuestionObj();
+    questionObj = getQuestionObj();
     var mainDiv = document.createElement("Div");
     main.append(mainDiv);
     mainDiv.setAttribute("id","answersDiv");
@@ -60,12 +71,12 @@ function renderQuestion(){
     mainQuestion.innerText = questionObj["question"];
     var answersList = document.createElement("ul");
     mainDiv.append(answersList);
-    var answersArr = questionObj["answers"];
+    answersArr = questionObj["answers"];
     for(var i=0;i<answersArr.length;i++){
         var btn = document.createElement("button");
         answer = questionObj["answers"][i];
         btn.setAttribute("data-ix",i);
-        fullAnswer = i + 1
+        fullAnswer = i + 1;
         fullAnswer += ". " + answer;
         btn.innerText = fullAnswer;
         answersList.appendChild(btn);
@@ -83,8 +94,29 @@ function renderQuestion(){
                 console.log("WRONG!");
                 timerSeconds -= 10;
             }
+            questionIndex++;
+            console.log(`questionIndex = ${questionIndex}`);
+            if (questionIndex < questionObjsArr.length){
+                refreshQuestion();
+            } else {
+                mainDiv.remove();
+            }
         }
     })
+}
+
+function refreshQuestion(){
+    questionObj = getQuestionObj();
+    mainQuestion.innerText = questionObj["question"];
+    answersArr = questionObj["answers"];
+    for(var i=0;i<answersArr.length;i++){
+        answer = questionObj["answers"][i];
+        fullAnswer = i + 1;
+        fullAnswer += ". " + answer;
+        btnArr = document.querySelectorAll("button");
+        console.log(btnArr[i].innerText);
+        btnArr[i].innerText = answersArr[i];
+    }
 }
 
 function startTimer() {
