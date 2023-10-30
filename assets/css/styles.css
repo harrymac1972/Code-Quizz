@@ -1,0 +1,16 @@
+
+:root {
+    --purple2: #bd60e7;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem;
+}
+
+#high-scores-btn {
+    color: var(--purple2);
+    font-weight: bolder;
+    text-decoration: none;
+}
