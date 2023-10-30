@@ -45,6 +45,19 @@ main button:hover {
     background-color: var(--purple2);
 }
 
+#submit {
+    margin: .5rem;
+    color:white;
+    background-color: var(--navy2);
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+    border: none;
+}
+
+#submit:hover {
+    background-color: var(--purple2);
+}
+
 main div {
     margin-top: 3rem;
     display: flex;
@@ -83,4 +96,3 @@ main ul {
 #rules-text {
     margin-bottom: 3rem;
 }
-

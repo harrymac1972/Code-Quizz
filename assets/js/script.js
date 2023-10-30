@@ -66,7 +66,7 @@ startQuizBtn.addEventListener("click",interrogate);
 function gameOver(){
     userScore = timerSeconds;
     clearInterval(timerInterval);
-    var scoreDiv = document.createElement("Div");
+    var scoreDiv = document.createElement("div");
     main.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
     mainTitle = document.createElement("h1");
@@ -77,7 +77,26 @@ function gameOver(){
     scoreString = "You're final score is: "
     scoreString += userScore + ".";
     scoreTxt.innerText = scoreString;
+    
+    var scoreForm = document.createElement("form");
+    scoreForm.setAttribute("method", "post");
 
+    var label = document.createElement("label");
+    label.innerText = "Enter Initials: ";
+    label.style.fontWeight = "bold";
+    scoreForm.appendChild(label);
+
+    var initials = document.createElement("input");
+    initials.setAttribute("type", "text");
+    initials.setAttribute("name", "initials");
+    scoreForm.appendChild(initials);
+    scoreDiv.append(scoreForm);
+
+    var submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "submit");
+    scoreForm.appendChild(submit);
+    scoreDiv.append(scoreForm);
 }
 
 function getQuestionObj(){
