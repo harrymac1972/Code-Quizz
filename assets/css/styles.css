@@ -2,9 +2,14 @@
     font-family: sans-serif;
 }
 
-
 :root {
+    --navy2: #351c75;
     --purple2: #bd60e7;
+}
+
+p {
+    line-height: 0rem;
+    font-weight: bold;
 }
 
 header {
@@ -20,25 +25,51 @@ main {
     justify-content: center;
 }
 
-main button{
-    margin: 3rem;
+main button {
+    margin: .5rem;
     color:white;
-    background-color: var(--purple2);
+    background-color: var(--navy2);
     border-radius: .5rem;
     font-size: large;
     padding: .75rem 1.5rem;
     border: none;
 }
 
+main button:hover {
+    background-color: var(--purple2);
+}
 
-p {
-    line-height: 0rem;
-    font-weight: bold;
+main div {
+    margin-top: 3rem;
+    /* max-width: 50vw; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+main ul {
+    display: flex;
+    flex-direction: column;
+    min-width: 38vw;
+    margin-left: -3rem;
+}
+
+#answersDiv {
+    max-width: 38vw;
+}
+
+#answerBtn {
+    text-align: left;
+    max-width: 25vw;
 }
 
 #high-scores-link {
     color: var(--purple2);
     font-weight: bolder;
     text-decoration: none;
+}
+
+#rules-text {
+    margin-bottom: 3rem;
 }
 
