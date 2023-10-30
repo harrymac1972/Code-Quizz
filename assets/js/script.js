@@ -6,7 +6,7 @@ var questionObjsArr = [{
                 "Tennis",
                 "Hockey"
             ],
-    "correct":"Hockey"
+    "correct":3
     },
     {
     "question":"People at Party?",
@@ -15,7 +15,7 @@ var questionObjsArr = [{
                 "Kat",
                 "Mike"
             ],
-    "correct":"Kat"
+    "correct":2
     }
 ];
 
@@ -45,10 +45,9 @@ function interrogate(){
     rulesText.remove();
     startQuizBtn.remove();
     renderQuestion();
-    timerSeconds = 2;
+    timerSeconds = 75;
     timeValue.innerText = timerSeconds;
     timerInterval = setInterval(startTimer, 1000);
-    return
 }
 
 function renderQuestion(){
@@ -65,11 +64,27 @@ function renderQuestion(){
     for(var i=0;i<answersArr.length;i++){
         var btn = document.createElement("button");
         answer = questionObj["answers"][i];
-        console.log(answer);
-        btn.innerText = answer;
+        btn.setAttribute("data-ix",i);
+        fullAnswer = i + 1
+        fullAnswer += ". " + answer;
+        btn.innerText = fullAnswer;
         answersList.appendChild(btn);
-        btn.setAttribute("id","answerBtn");
+        btn.setAttribute("class","answer");
     }
+    answersDiv.addEventListener("click",function(event){
+        var eventTarget = event.target;
+        if (eventTarget.matches(".answer")){
+            var answerIx = eventTarget.getAttribute("data-ix");
+            console.log(answerIx);
+            var correctAnswer = questionObj["correct"];
+            if (answerIx == correctAnswer) {
+                console.log("That's right!!");
+            } else {
+                console.log("WRONG!");
+                timerSeconds -= 10;
+            }
+        }
+    })
 }
 
 function startTimer() {
