@@ -5,11 +5,17 @@
 :root {
     --navy2: #351c75;
     --purple2: #bd60e7;
+    --grey2: #959595;
 }
 
 p {
     line-height: 0rem;
     font-weight: bold;
+}
+
+h2 {
+    color: var(--grey2);
+    padding-top: .25rem;
 }
 
 header {
@@ -60,6 +66,12 @@ main ul {
     text-align: left;
     max-width: 25vw;
     padding-right: 3rem;
+}
+
+#feedback-div {
+    border-top: 2px solid var(--grey2);
+    min-width: 38vw;
+    margin-top: -.25rem;
 }
 
 #high-scores-link {

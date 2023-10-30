@@ -1,15 +1,15 @@
 
 var questionObjsArr = [{
-    "question":"A variable is a ____?",
-    "answers":["Condition",
-                "Element",
-                "Algorithm",
-                "Container"
+    "question":"What is a variable?",
+    "answers":["a Condition",
+                "an Element",
+                "an Algorithm",
+                "a Container"
             ],
     "correct":3
     },
     {
-    "question":"A variable declared in a function is considered?",
+    "question":"A variable declared in a function is considered what type?",
     "answers":["Numeric",
                 "a String",
                 "Local",
@@ -18,13 +18,31 @@ var questionObjsArr = [{
     "correct":2
     },
     {
-    "question":"The skeleton of a web-site is the?",
+    "question":"What is the skeleton of a web-site?",
     "answers":["CSS",
                 "Javascript",
                 "HTML",
                 "W3"
             ],
     "correct":2
+    },
+    {
+    "question":"Where can the style of a font be changed?",
+    "answers":["HTML",
+                "CSS",
+                "Javascript",
+                "All of the above"
+            ],
+    "correct":3
+    },
+    {
+    "question":"What can not be in objects?",
+    "answers":["Comments",
+                "Arrays",
+                "Key Value Pairs",
+                "Objects"
+            ],
+    "correct":0
     }
 ];
 
@@ -38,12 +56,28 @@ var mainTitle = document.querySelector("#main-title");
 var rulesText = document.querySelector("#rules-text");
 var questionIndex = 0;
 var questionObj = {};
-answersArr = [];
+var answersArr = [];
+var feedbackEl = 0;
+var feedbackString = "";
+var feedbackDiv = 0;
 
 startQuizBtn.addEventListener("click",interrogate);
 
-function gameOver(){    
+function gameOver(){
+    userScore = timerSeconds;
     clearInterval(timerInterval);
+    var scoreDiv = document.createElement("Div");
+    main.append(scoreDiv);
+    scoreDiv.setAttribute("id","score-div");
+    mainTitle = document.createElement("h1");
+    scoreDiv.append(mainTitle);
+    mainTitle.innerText = "All done!";
+    scoreTxt = document.createElement("h3");
+    scoreDiv.append(scoreTxt);
+    scoreString = "You're final score is: "
+    scoreString += userScore + ".";
+    scoreTxt.innerText = scoreString;
+
 }
 
 function getQuestionObj(){
@@ -82,27 +116,44 @@ function renderQuestion(){
         answersList.appendChild(btn);
         btn.setAttribute("class","answer");
     }
+    feedbackDiv = document.createElement("div");
+    feedbackEl = document.createElement("h2");
+    feedbackDiv.append(feedbackEl);
+    feedbackDiv.setAttribute("id","feedback-div");
+    mainDiv.append(feedbackDiv);
+    feedbackEl.innerText = "Initialize!";
+    feedbackDiv.style.opacity = 0;
     answersDiv.addEventListener("click",function(event){
         var eventTarget = event.target;
         if (eventTarget.matches(".answer")){
             var answerIx = eventTarget.getAttribute("data-ix");
-            console.log(answerIx);
             var correctAnswer = questionObj["correct"];
             if (answerIx == correctAnswer) {
-                console.log("That's right!!");
-            } else {
-                console.log("WRONG!");
+                feedbackString = "Correct!"
+            } else {                
+                feedbackString = "Wrong!"
                 timerSeconds -= 10;
             }
             questionIndex++;
-            console.log(`questionIndex = ${questionIndex}`);
+            feedback();
             if (questionIndex < questionObjsArr.length){
                 refreshQuestion();
             } else {
-                mainDiv.remove();
+                setTimeout(() => {
+                    mainDiv.remove();
+                    gameOver();
+                }, 500);
             }
         }
     })
+}
+
+function feedback(){
+    feedbackEl.innerText = feedbackString;
+    feedbackDiv.style.opacity = 1;
+    setTimeout(() => {
+        feedbackDiv.style.opacity = 0;
+    }, 500);
 }
 
 function refreshQuestion(){
@@ -114,7 +165,6 @@ function refreshQuestion(){
         fullAnswer = i + 1;
         fullAnswer += ". " + answer;
         btnArr = document.querySelectorAll("button");
-        console.log(btnArr[i].innerText);
         btnArr[i].innerText = answersArr[i];
     }
 }
