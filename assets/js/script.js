@@ -1,4 +1,6 @@
 
+// #region GLOBALS
+
 var questionObjsArr = [{
     "question":"What is a variable?",
     "answers":["a Condition",
@@ -66,7 +68,120 @@ var initialsValue = "";
 var scoreSetArr = [];
 var boardDiv = 0;
 
-startQuizBtn.addEventListener("click",interrogate);
+// #endregion
+
+// #region INTRO
+
+
+function homePage(){
+    alert("Heading back to first window");
+}
+
+function startTimer() {
+    timerSeconds--;
+    timeValue.innerText = timerSeconds;
+    if (timerSeconds <= 0) {
+        gameOver();
+    }
+  }
+
+// #endregion
+
+// #region QUIZZ
+
+function interrogate(){
+    mainTitle.remove();
+    rulesText.remove();
+    startQuizBtn.remove();
+    renderQuestion();
+    timerSeconds = 75;
+    timeValue.innerText = timerSeconds;
+    timerInterval = setInterval(startTimer, 1000);
+}
+
+function feedback(){
+    feedbackEl.innerText = feedbackString;
+    feedbackDiv.style.opacity = 1;
+    setTimeout(() => {
+        feedbackDiv.style.opacity = 0;
+    }, 500);
+}
+
+function getQuestionObj(){
+    var questionObj = questionObjsArr[questionIndex];
+    return questionObj;
+}
+
+function refreshQuestion(){
+    questionObj = getQuestionObj();
+    mainQuestion.innerText = questionObj["question"];
+    answersArr = questionObj["answers"];
+    for(var i=0;i<answersArr.length;i++){
+        answer = questionObj["answers"][i];
+        fullAnswer = i + 1;
+        fullAnswer += ".  " + answer;
+        btnArr = document.querySelectorAll("btn");
+        btnArr[i].innerText = fullAnswer;
+    }
+}
+
+function renderQuestion(){
+    questionObj = getQuestionObj();
+    var mainDiv = document.createElement("Div");
+    main.append(mainDiv);
+    mainDiv.setAttribute("id","answersDiv");
+    mainQuestion = document.createElement("h1");
+    mainDiv.append(mainQuestion);
+    mainQuestion.innerText = questionObj["question"];
+    var answersList = document.createElement("ul");
+    mainDiv.append(answersList);
+    answersArr = questionObj["answers"];
+    for(var i=0;i<answersArr.length;i++){
+        var btn = document.createElement("btn");
+        answer = questionObj["answers"][i];
+        btn.setAttribute("data-ix",i);
+        fullAnswer = i + 1;
+        fullAnswer += ".  " + answer;
+        btn.innerText = fullAnswer;
+        answersList.appendChild(btn);
+        btn.setAttribute("class","answer");
+    }
+    feedbackDiv = document.createElement("div");
+    feedbackEl = document.createElement("h2");
+    feedbackDiv.append(feedbackEl);
+    feedbackDiv.setAttribute("id","feedback-div");
+    mainDiv.append(feedbackDiv);
+    // feedbackEl.innerText = "Initialize!";
+    feedbackDiv.style.opacity = 0;
+    answersDiv.addEventListener("click",function(event){
+        var eventTarget = event.target;
+        if (eventTarget.matches(".answer")){
+            var answerIx = eventTarget.getAttribute("data-ix");
+            var correctAnswer = questionObj["correct"];
+            if (answerIx == correctAnswer) {
+                feedbackString = "Correct!"
+            } else {                
+                feedbackString = "Wrong!"
+                timerSeconds -= 10;
+            }
+            questionIndex++;
+            feedback();
+            if (questionIndex < questionObjsArr.length){
+                refreshQuestion();
+            } else {
+                setTimeout(() => {
+                    mainDiv.remove();
+                    gameOver();
+                }, 500);
+            }
+        }
+    })
+}
+
+// #endregion
+
+// #region RESULTS
+
 
 function gameOver(){
     userScore = timerSeconds;
@@ -134,6 +249,10 @@ function handleFormSubmit(event) {
     showHighScores();
 }
 
+// #endregion
+
+// #region HIGH SCORE BOARD
+
 function showHighScores(){
     highDiv = document.createElement("div");
     main.append(highDiv);
@@ -176,8 +295,6 @@ function showHighScores(){
     clearBtn.innerText = "Clear high scores";
     highBtnDiv.append(clearBtn);
     clearBtn.addEventListener("click",clearScores);
-
-
 }
 
 function clearScores(){
@@ -185,105 +302,12 @@ function clearScores(){
     alert("Heading back to first window");
 }
 
-function homePage(){
-    alert("Heading back to first window");
-}
+// #endregion
 
-function getQuestionObj(){
-    var questionObj = questionObjsArr[questionIndex];
-    return questionObj;
-}
+// #region INIT
 
-function interrogate(){
-    mainTitle.remove();
-    rulesText.remove();
-    startQuizBtn.remove();
-    renderQuestion();
-    timerSeconds = 75;
-    timeValue.innerText = timerSeconds;
-    timerInterval = setInterval(startTimer, 1000);
-}
-
-function renderQuestion(){
-    questionObj = getQuestionObj();
-    var mainDiv = document.createElement("Div");
-    main.append(mainDiv);
-    mainDiv.setAttribute("id","answersDiv");
-    mainQuestion = document.createElement("h1");
-    mainDiv.append(mainQuestion);
-    mainQuestion.innerText = questionObj["question"];
-    var answersList = document.createElement("ul");
-    mainDiv.append(answersList);
-    answersArr = questionObj["answers"];
-    for(var i=0;i<answersArr.length;i++){
-        var btn = document.createElement("btn");
-        answer = questionObj["answers"][i];
-        btn.setAttribute("data-ix",i);
-        fullAnswer = i + 1;
-        fullAnswer += ".  " + answer;
-        btn.innerText = fullAnswer;
-        answersList.appendChild(btn);
-        btn.setAttribute("class","answer");
-    }
-    feedbackDiv = document.createElement("div");
-    feedbackEl = document.createElement("h2");
-    feedbackDiv.append(feedbackEl);
-    feedbackDiv.setAttribute("id","feedback-div");
-    mainDiv.append(feedbackDiv);
-    // feedbackEl.innerText = "Initialize!";
-    feedbackDiv.style.opacity = 0;
-    answersDiv.addEventListener("click",function(event){
-        var eventTarget = event.target;
-        if (eventTarget.matches(".answer")){
-            var answerIx = eventTarget.getAttribute("data-ix");
-            var correctAnswer = questionObj["correct"];
-            if (answerIx == correctAnswer) {
-                feedbackString = "Correct!"
-            } else {                
-                feedbackString = "Wrong!"
-                timerSeconds -= 10;
-            }
-            questionIndex++;
-            feedback();
-            if (questionIndex < questionObjsArr.length){
-                refreshQuestion();
-            } else {
-                setTimeout(() => {
-                    mainDiv.remove();
-                    gameOver();
-                }, 500);
-            }
-        }
-    })
-}
-
-function feedback(){
-    feedbackEl.innerText = feedbackString;
-    feedbackDiv.style.opacity = 1;
-    setTimeout(() => {
-        feedbackDiv.style.opacity = 0;
-    }, 500);
-}
-
-function refreshQuestion(){
-    questionObj = getQuestionObj();
-    mainQuestion.innerText = questionObj["question"];
-    answersArr = questionObj["answers"];
-    for(var i=0;i<answersArr.length;i++){
-        answer = questionObj["answers"][i];
-        fullAnswer = i + 1;
-        fullAnswer += ".  " + answer;
-        btnArr = document.querySelectorAll("btn");
-        btnArr[i].innerText = fullAnswer;
-    }
-}
-
-function startTimer() {
-    timerSeconds--;
-    timeValue.innerText = timerSeconds;
-    if (timerSeconds <= 0) {
-        gameOver();
-    }
-  }
+startQuizBtn.addEventListener("click",interrogate);
 
 timeValue.innerText = timerSeconds;
+
+// #endregion
