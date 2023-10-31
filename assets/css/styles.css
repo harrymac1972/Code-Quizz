@@ -19,10 +19,6 @@ h2 {
     padding-top: .25rem;
 }
 
-#high-list-div {
-    margin-top: -4em;
-}
-
 li {
     list-style-type: none;
     background-color: var(--lavender2);
@@ -56,6 +52,31 @@ btn {
 
 btn:hover {
     background-color: var(--purple2);
+}
+
+#high-list-div {
+    display: flex;
+    margin-top: -4em;
+    justify-content: center;
+    align-items: center;
+    min-width: 25vw;
+}
+
+#scores-ul {
+    font-weight: bold;
+    padding-right: 5em;
+    padding-left: 0;
+    margin-bottom: -2em;
+    margin-left: 0;
+    align-items: center;
+}
+
+#scores-ul li {
+    list-style-type: none;
+    background-color: var(--lavender2);
+    padding: .125em 2em;
+    margin-left: 5em;
+    min-width: 25vw;
 }
 
 #submit {

@@ -273,20 +273,13 @@ function handleFormSubmit(event) {
     var localStorageString = localStorage.getItem("scoresObj");
     if (localStorageString) {
         var localStorageJSON = JSON.parse(localStorageString);
-        console.log(localStorageJSON);
         // append new entry
         var localArr = localStorageJSON["scoresArr"];
-        console.log("localArr:");
-        console.log(localArr);
         localArr.push(scoreSetObj);
-        console.log("localArr:");
-        console.log(localArr);
         localStorage.clear();
         localStorage.setItem("scoresObj", JSON.stringify(localStorageJSON));
     } else {
-        console.log("Local Storage is Empty");
         var scoresObj = {"scoresArr":[scoreSetObj,]};
-        console.log(scoresObj);
         localStorage.setItem("scoresObj", JSON.stringify(scoresObj));
     }
     scoreDiv.remove();
@@ -316,6 +309,7 @@ function showHighScores(){
     localStorageJSON = JSON.parse(localStorageString);
     localArr = localStorageJSON["scoresArr"];
     var uHighList = document.createElement("ul");
+    uHighList.setAttribute("id","scores-ul");
     highListDiv.append(uHighList);
     for (i=0;i<localArr.length;i++){
         var highListItem = document.createElement("li");
@@ -324,6 +318,7 @@ function showHighScores(){
         highListItem.innerText = initialString + " - " + scoreString;
         uHighList.append(highListItem);
     }
+
     highBtnDiv = document.createElement("div");
     main.append(highBtnDiv);
     highBtnDiv.setAttribute("id","high-btn-div");
