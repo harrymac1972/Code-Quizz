@@ -118,6 +118,7 @@ function homePageResets(){
 function preInterrogate(){
     mainTitleD.remove();
     rulesDivD.remove();
+    startQuizBtnD.remove();
     interrogate();
 }
 
