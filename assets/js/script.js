@@ -161,7 +161,32 @@ function showHighScores(){
         highListItem.innerText = initialString + " - " + scoreString;
         uHighList.append(highListItem);
     }
+    var highBtnDiv = document.createElement("div");
+    main.append(highBtnDiv);
+    highBtnDiv.setAttribute("id","high-btn-div");
 
+    var goBackBtn = document.createElement("btn");
+    goBackBtn.setAttribute("id","go-back-btn");
+    goBackBtn.innerText = "Go back";
+    highBtnDiv.append(goBackBtn);
+    goBackBtn.addEventListener("click",homePage);
+    
+    var clearBtn = document.createElement("btn");
+    clearBtn.setAttribute("id","clear-btn");
+    clearBtn.innerText = "Clear high scores";
+    highBtnDiv.append(clearBtn);
+    clearBtn.addEventListener("click",clearScores);
+
+
+}
+
+function clearScores(){
+    localStorage.clear();
+    alert("Heading back to first window");
+}
+
+function homePage(){
+    alert("Heading back to first window");
 }
 
 function getQuestionObj(){
@@ -191,11 +216,11 @@ function renderQuestion(){
     mainDiv.append(answersList);
     answersArr = questionObj["answers"];
     for(var i=0;i<answersArr.length;i++){
-        var btn = document.createElement("button");
+        var btn = document.createElement("btn");
         answer = questionObj["answers"][i];
         btn.setAttribute("data-ix",i);
         fullAnswer = i + 1;
-        fullAnswer += ". " + answer;
+        fullAnswer += ".  " + answer;
         btn.innerText = fullAnswer;
         answersList.appendChild(btn);
         btn.setAttribute("class","answer");
@@ -205,7 +230,7 @@ function renderQuestion(){
     feedbackDiv.append(feedbackEl);
     feedbackDiv.setAttribute("id","feedback-div");
     mainDiv.append(feedbackDiv);
-    feedbackEl.innerText = "Initialize!";
+    // feedbackEl.innerText = "Initialize!";
     feedbackDiv.style.opacity = 0;
     answersDiv.addEventListener("click",function(event){
         var eventTarget = event.target;
@@ -247,9 +272,9 @@ function refreshQuestion(){
     for(var i=0;i<answersArr.length;i++){
         answer = questionObj["answers"][i];
         fullAnswer = i + 1;
-        fullAnswer += ". " + answer;
-        btnArr = document.querySelectorAll("button");
-        btnArr[i].innerText = answersArr[i];
+        fullAnswer += ".  " + answer;
+        btnArr = document.querySelectorAll("btn");
+        btnArr[i].innerText = fullAnswer;
     }
 }
 

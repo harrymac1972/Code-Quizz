@@ -19,7 +19,7 @@ h2 {
     padding-top: .25rem;
 }
 
-ul {
+#high-list-div {
     margin-top: -4em;
 }
 
@@ -44,7 +44,7 @@ main {
     justify-content: center;
 }
 
-main button {
+btn {
     margin: .5rem;
     color:white;
     background-color: var(--navy2);
@@ -54,7 +54,7 @@ main button {
     border: none;
 }
 
-main button:hover {
+btn:hover {
     background-color: var(--purple2);
 }
 
@@ -108,4 +108,9 @@ main ul {
 
 #rules-text {
     margin-bottom: 3rem;
+}
+
+#high-btn-div {
+    display:flex;
+    flex-direction: row;
 }
