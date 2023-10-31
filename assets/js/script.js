@@ -100,6 +100,7 @@ function homePage(){
     startQuizBtnD.setAttribute("id","start-quiz-btn-d");
     startQuizBtnD.innerText = "Start Quiz";
     mainEl.append(startQuizBtnD);
+    startQuizBtnD.addEventListener("click",preInterrogate);
 }
 
 function homePageCleanDivs(){
@@ -114,6 +115,12 @@ function homePageResets(){
     questionIndex = 0;
 }
 
+function preInterrogate(){
+    mainTitleD.remove();
+    rulesDivD.remove();
+    interrogate();
+}
+
 function startTimer() {
     timerSeconds--;
     timeValue.innerText = timerSeconds;
@@ -126,15 +133,6 @@ function startTimer() {
 
 // #region QUIZZ
 
-function interrogate(){
-    homePageResets();
-    mainTitle.remove();
-    rulesText.remove();
-    startQuizBtn.remove();
-    renderQuestion();
-    timerInterval = setInterval(startTimer, 1000);
-}
-
 function feedback(){
     feedbackEl.innerText = feedbackString;
     feedbackDiv.style.opacity = 1;
@@ -146,6 +144,15 @@ function feedback(){
 function getQuestionObj(){
     var questionObj = questionObjsArr[questionIndex];
     return questionObj;
+}
+
+function interrogate(){
+    homePageResets();
+    mainTitle.remove();
+    rulesText.remove();
+    startQuizBtn.remove();
+    renderQuestion();
+    timerInterval = setInterval(startTimer, 1000);
 }
 
 function refreshQuestion(){
