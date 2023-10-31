@@ -51,6 +51,7 @@ var questionObjsArr = [{
 var highScoresEl = document.querySelector("#high-scores-link");
 var timeValue = document.querySelector("#time-value");
 var startQuizBtn = document.querySelector("#start-quiz-btn");
+var startQuizBtnD = 0;
 var timerSeconds = 0;
 var timerInterval = 0;
 var mainEl = document.querySelector("#main");
@@ -69,6 +70,10 @@ var scoreSetArr = [];
 var boardDiv = 0;
 var highBtnDiv = 0;
 var highListDiv = 0;
+var mainTitleD = 0;
+var rulesDivD = 0;
+var rulesParD1 = 0;
+var rulesParD2 = 0;
 
 // #endregion
 
@@ -78,19 +83,23 @@ var highListDiv = 0;
 function homePage(){
     homePageCleanDivs();
     homePageResets();
-    var mainTitleD = document.createElement("h1");
+    mainTitleD = document.createElement("h1");
     mainTitleD.innerText = "Coding Quiz Challenge";
     mainTitleD.setAttribute("id","main-title-d");
-    var rulesDivD = document.createElement("div");
+    rulesDivD = document.createElement("div");
     rulesDivD.setAttribute("id","rules-div");
-    var rulesParD1 = document.createElement("p");
-    var rulesParD2 = document.createElement("p");
+    rulesParD1 = document.createElement("p");
+    rulesParD2 = document.createElement("p");
     rulesParD1.innerText = "Try to answer the following code-related questions within the time limit."
     rulesParD2.innerText = "Keep in mind that incorrect answers well penalize you score/time by ten seconds!"
     mainEl.append(mainTitleD);
     mainEl.append(rulesDivD);
     rulesDivD.append(rulesParD1);
     rulesDivD.append(rulesParD2);
+    startQuizBtnD = document.createElement("btn");
+    startQuizBtnD.setAttribute("id","start-quiz-btn-d");
+    startQuizBtnD.innerText = "Start Quiz";
+    mainEl.append(startQuizBtnD);
 }
 
 function homePageCleanDivs(){
@@ -102,6 +111,7 @@ function homePageCleanDivs(){
 function homePageResets(){
     timerSeconds = 75;
     timeValue.innerText = timerSeconds;
+    questionIndex = 0;
 }
 
 function startTimer() {
