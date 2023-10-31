@@ -60,6 +60,9 @@ var answersArr = [];
 var feedbackEl = 0;
 var feedbackString = "";
 var feedbackDiv = 0;
+var initials = "";
+var initialsValue = "";
+var scoreSetArr = [];
 
 startQuizBtn.addEventListener("click",interrogate);
 
@@ -77,7 +80,7 @@ function gameOver(){
     scoreString = "You're final score is: "
     scoreString += userScore + ".";
     scoreTxt.innerText = scoreString;
-    
+
     var scoreForm = document.createElement("form");
     scoreForm.setAttribute("method", "post");
 
@@ -86,7 +89,7 @@ function gameOver(){
     label.style.fontWeight = "bold";
     scoreForm.appendChild(label);
 
-    var initials = document.createElement("input");
+    initials = document.createElement("input");
     initials.setAttribute("type", "text");
     initials.setAttribute("name", "initials");
     scoreForm.appendChild(initials);
@@ -97,6 +100,38 @@ function gameOver(){
     submit.setAttribute("id", "submit");
     scoreForm.appendChild(submit);
     scoreDiv.append(scoreForm);
+
+    scoreForm.addEventListener("submit",handleFormSubmit);
+}
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+    initialsValue = initials.value;
+    var scoreSetObj = {"initialsK":initialsValue,"scoreK":userScore};
+    scoreSetArr.push(scoreSetObj);
+    var localStorageString = localStorage.getItem("scoresObj");
+    if (localStorageString) {
+        var localStorageJSON = JSON.parse(localStorageString);
+        console.log(localStorageJSON);
+        // append new entry
+        var localArr = localStorageJSON["scoresArr"];
+        console.log("localArr:");
+        console.log(localArr);
+        localArr.push(scoreSetObj);
+        console.log("localArr:");
+        console.log(localArr);
+        localStorage.clear();
+        localStorage.setItem("scoresObj", JSON.stringify(localStorageJSON));
+    } else {
+        console.log("Local Storage is Empty");
+        var scoresObj = {"scoresArr":[scoreSetObj,]};
+        console.log(scoresObj);
+        localStorage.setItem("scoresObj", JSON.stringify(scoresObj));
+    }
+
+    
+    // stringify if
+    // store it in local storage
 }
 
 function getQuestionObj(){
