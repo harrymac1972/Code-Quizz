@@ -251,7 +251,7 @@ function handleFormSubmit(event) {
 
 // #endregion
 
-// #region HIGH SCORE BOARD
+// #region SCORE BOARD
 
 function showHighScores(){
     highDiv = document.createElement("div");
