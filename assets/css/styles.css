@@ -106,7 +106,9 @@ main ul {
     text-decoration: none;
 }
 
-#rules-text {
+#rules-div {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 3rem;
 }
 

@@ -55,7 +55,7 @@ var timerSeconds = 0;
 var timerInterval = 0;
 var mainEl = document.querySelector("#main");
 var mainTitle = document.querySelector("#main-title");
-var rulesText = document.querySelector("#rules-text");
+var rulesText = document.querySelector("#rules-div");
 var questionIndex = 0;
 var questionObj = {};
 var answersArr = [];
@@ -67,6 +67,8 @@ var initials = "";
 var initialsValue = "";
 var scoreSetArr = [];
 var boardDiv = 0;
+var highBtnDiv = 0;
+var highListDiv = 0;
 
 // #endregion
 
@@ -74,7 +76,32 @@ var boardDiv = 0;
 
 
 function homePage(){
-    alert("Heading back to first window");
+    homePageCleanDivs();
+    homePageResets();
+    var mainTitleD = document.createElement("h1");
+    mainTitleD.innerText = "Coding Quiz Challenge";
+    mainTitleD.setAttribute("id","main-title-d");
+    var rulesDivD = document.createElement("div");
+    rulesDivD.setAttribute("id","rules-div");
+    var rulesParD1 = document.createElement("p");
+    var rulesParD2 = document.createElement("p");
+    rulesParD1.innerText = "Try to answer the following code-related questions within the time limit."
+    rulesParD2.innerText = "Keep in mind that incorrect answers well penalize you score/time by ten seconds!"
+    mainEl.append(mainTitleD);
+    mainEl.append(rulesDivD);
+    rulesDivD.append(rulesParD1);
+    rulesDivD.append(rulesParD2);
+}
+
+function homePageCleanDivs(){
+    highDiv.remove();
+    highListDiv.remove();
+    highBtnDiv.remove();
+}
+
+function homePageResets(){
+    timerSeconds = 75;
+    timeValue.innerText = timerSeconds;
 }
 
 function startTimer() {
@@ -90,12 +117,11 @@ function startTimer() {
 // #region QUIZZ
 
 function interrogate(){
+    homePageResets();
     mainTitle.remove();
     rulesText.remove();
     startQuizBtn.remove();
     renderQuestion();
-    timerSeconds = 75;
-    timeValue.innerText = timerSeconds;
     timerInterval = setInterval(startTimer, 1000);
 }
 
@@ -261,7 +287,7 @@ function showHighScores(){
     highDiv.append(mainTitle);
     mainTitle.innerText = "High Scores";
 
-    var highListDiv = document.createElement("div");
+    highListDiv = document.createElement("div");
     main.append(highListDiv);
     highListDiv.setAttribute("id","high-list-div");
     var listing = document.createElement("h3");
@@ -280,7 +306,7 @@ function showHighScores(){
         highListItem.innerText = initialString + " - " + scoreString;
         uHighList.append(highListItem);
     }
-    var highBtnDiv = document.createElement("div");
+    highBtnDiv = document.createElement("div");
     main.append(highBtnDiv);
     highBtnDiv.setAttribute("id","high-btn-div");
 
@@ -299,15 +325,14 @@ function showHighScores(){
 
 function clearScores(){
     localStorage.clear();
-    alert("Heading back to first window");
+    homePage();
 }
 
 // #endregion
 
 // #region INIT
 
+homePageResets();
 startQuizBtn.addEventListener("click",interrogate);
-
-timeValue.innerText = timerSeconds;
 
 // #endregion
