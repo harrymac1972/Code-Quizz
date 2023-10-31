@@ -60,16 +60,18 @@ var answersArr = [];
 var feedbackEl = 0;
 var feedbackString = "";
 var feedbackDiv = 0;
+var scoreDiv = 0;
 var initials = "";
 var initialsValue = "";
 var scoreSetArr = [];
+var boardDiv = 0;
 
 startQuizBtn.addEventListener("click",interrogate);
 
 function gameOver(){
     userScore = timerSeconds;
     clearInterval(timerInterval);
-    var scoreDiv = document.createElement("div");
+    scoreDiv = document.createElement("div");
     main.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
     mainTitle = document.createElement("h1");
@@ -128,10 +130,38 @@ function handleFormSubmit(event) {
         console.log(scoresObj);
         localStorage.setItem("scoresObj", JSON.stringify(scoresObj));
     }
+    scoreDiv.remove();
+    showHighScores();
+}
 
+function showHighScores(){
+    highDiv = document.createElement("div");
+    main.append(highDiv);
+    highDiv.setAttribute("id","high-div");
+    mainTitle = document.createElement("h1");
+    highDiv.append(mainTitle);
+    mainTitle.innerText = "High Scores";
+
+    var highListDiv = document.createElement("div");
+    main.append(highListDiv);
+    highListDiv.setAttribute("id","high-list-div");
+    var listing = document.createElement("h3");
+
+    highListDiv.append(listing);
     
-    // stringify if
-    // store it in local storage
+    localStorageString = localStorage.getItem("scoresObj");
+    localStorageJSON = JSON.parse(localStorageString);
+    localArr = localStorageJSON["scoresArr"];
+    var uHighList = document.createElement("ul");
+    highListDiv.append(uHighList);
+    for (i=0;i<localArr.length;i++){
+        var highListItem = document.createElement("li");
+        var initialString = localArr[i]["initialsK"];
+        var scoreString = localArr[i]["scoreK"];
+        highListItem.innerText = initialString + " - " + scoreString;
+        uHighList.append(highListItem);
+    }
+
 }
 
 function getQuestionObj(){
