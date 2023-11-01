@@ -247,13 +247,14 @@ function gameOver(){
     scoreForm.setAttribute("method", "post");
 
     var label = document.createElement("label");
+    label.setAttribute("for", "initials");
     label.innerText = "Enter Initials: ";
     label.style.fontWeight = "bold";
     scoreForm.appendChild(label);
 
     initials = document.createElement("input");
     initials.setAttribute("type", "text");
-    initials.setAttribute("name", "initials");
+    initials.setAttribute("id", "initials");
     scoreForm.appendChild(initials);
     scoreDiv.append(scoreForm);
 
