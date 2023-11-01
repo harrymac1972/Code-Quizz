@@ -196,7 +196,6 @@ function renderQuestion(){
     feedbackDiv.append(feedbackEl);
     feedbackDiv.setAttribute("id","feedback-div");
     mainDiv.append(feedbackDiv);
-    // feedbackEl.innerText = "Initialize!";
     feedbackDiv.style.opacity = 0;
     answersDiv.addEventListener("click",function(event){
         var eventTarget = event.target;
@@ -215,7 +214,6 @@ function renderQuestion(){
                 refreshQuestion();
             } else {
                 setTimeout(() => {
-                    mainDiv.remove();
                     gameOver();
                 }, 500);
             }
@@ -231,6 +229,7 @@ function renderQuestion(){
 function gameOver(){
     userScore = timerSeconds;
     stopTimer();
+    reInitMain();
     scoreDiv = document.createElement("div");
     mainEl.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
