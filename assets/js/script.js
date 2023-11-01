@@ -269,22 +269,26 @@ function gameOver(){
 function handleFormSubmit(event) {
     event.preventDefault();
     initialsValue = initials.value;
-    var scoreSetObj = {"initialsK":initialsValue,"scoreK":userScore};
-    scoreSetArr.push(scoreSetObj);
-    var localStorageString = localStorage.getItem("scoresObj");
-    if (localStorageString) {
-        var localStorageJSON = JSON.parse(localStorageString);
-        // append new entry
-        var localArr = localStorageJSON["scoresArr"];
-        localArr.push(scoreSetObj);
-        localStorage.clear();
-        localStorage.setItem("scoresObj", JSON.stringify(localStorageJSON));
+    if (initialsValue.length < 1) {
+        initials.style.borderColor = "red";
     } else {
-        var scoresObj = {"scoresArr":[scoreSetObj,]};
-        localStorage.setItem("scoresObj", JSON.stringify(scoresObj));
+        var scoreSetObj = {"initialsK":initialsValue,"scoreK":userScore};
+        scoreSetArr.push(scoreSetObj);
+        var localStorageString = localStorage.getItem("scoresObj");
+        if (localStorageString) {
+            var localStorageJSON = JSON.parse(localStorageString);
+            // append new entry
+            var localArr = localStorageJSON["scoresArr"];
+            localArr.push(scoreSetObj);
+            localStorage.clear();
+            localStorage.setItem("scoresObj", JSON.stringify(localStorageJSON));
+        } else {
+            var scoresObj = {"scoresArr":[scoreSetObj,]};
+            localStorage.setItem("scoresObj", JSON.stringify(scoresObj));
+        }
+        scoreDiv.remove();
+        showHighScores();
     }
-    scoreDiv.remove();
-    showHighScores();
 }
 
 // #endregion
