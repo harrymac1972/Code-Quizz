@@ -123,13 +123,18 @@ function preInterrogate(){
     interrogate();
 }
 
-function startTimer() {
+function clockTimer() {
     timerSeconds--;
     timeValue.innerText = timerSeconds;
     if (timerSeconds <= 0) {
         gameOver();
     }
   }
+
+function stopTimer(){
+    clearInterval(timerInterval);
+    timeValue.innerText = timerSeconds;
+}
 
 // #endregion
 
@@ -154,7 +159,7 @@ function interrogate(){
     rulesText.remove();
     startQuizBtn.remove();
     renderQuestion();
-    timerInterval = setInterval(startTimer, 1000);
+    timerInterval = setInterval(clockTimer, 1000);
 }
 
 function refreshQuestion(){
@@ -230,7 +235,7 @@ function renderQuestion(){
 
 function gameOver(){
     userScore = timerSeconds;
-    clearInterval(timerInterval);
+    stopTimer();
     scoreDiv = document.createElement("div");
     mainEl.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
@@ -303,7 +308,7 @@ function reInitMain(){
 }
 
 function showHighScores(){
-    clearInterval(timerInterval);
+    stopTimer();
     reInitMain();
     highDiv = document.createElement("div");
     mainEl.append(highDiv);
