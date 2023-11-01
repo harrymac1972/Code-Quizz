@@ -327,6 +327,7 @@ function showHighScores(){
     localStorageJSON = JSON.parse(localStorageString);
     try{
         localArr = localStorageJSON["scoresArr"];
+        localArr.sort((a, b) => b.scoreK - a.scoreK);
         var uHighList = document.createElement("ul");
         uHighList.setAttribute("id","scores-ul");
         highListDiv.append(uHighList);

@@ -36,5 +36,7 @@ Resources:
 
     https://www.w3schools.com/java/java_try_catch.asp
 
+    chatgpt [for sorting array of objects]
+
 
 
