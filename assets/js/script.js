@@ -173,7 +173,7 @@ function refreshQuestion(){
 function renderQuestion(){
     questionObj = getQuestionObj();
     var mainDiv = document.createElement("Div");
-    main.append(mainDiv);
+    mainEl.append(mainDiv);
     mainDiv.setAttribute("id","answersDiv");
     mainQuestion = document.createElement("h1");
     mainDiv.append(mainQuestion);
@@ -232,7 +232,7 @@ function gameOver(){
     userScore = timerSeconds;
     clearInterval(timerInterval);
     scoreDiv = document.createElement("div");
-    main.append(scoreDiv);
+    mainEl.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
     mainTitle = document.createElement("h1");
     scoreDiv.append(mainTitle);
@@ -296,24 +296,24 @@ function clearScores(){
     homePage();
 }
 
-function reinitMain(){
+function reInitMain(){
     mainEl.remove();
     mainEl = document.createElement("main");
-    bodyEl.appendChild(mainEl);
-
+    bodyEl.append(mainEl);
 }
 
 function showHighScores(){
-    reinitMain();
+    clearInterval(timerInterval);
+    reInitMain();
     highDiv = document.createElement("div");
-    main.append(highDiv);
+    mainEl.append(highDiv);
     highDiv.setAttribute("id","high-div");
     mainTitle = document.createElement("h1");
     highDiv.append(mainTitle);
     mainTitle.innerText = "High Scores";
 
     highListDiv = document.createElement("div");
-    main.append(highListDiv);
+    mainEl.append(highListDiv);
     highListDiv.setAttribute("id","high-list-div");
     var listing = document.createElement("h3");
 
@@ -334,7 +334,7 @@ function showHighScores(){
     }
 
     highBtnDiv = document.createElement("div");
-    main.append(highBtnDiv);
+    mainEl.append(highBtnDiv);
     highBtnDiv.setAttribute("id","high-btn-div");
 
     var goBackBtn = document.createElement("btn");
