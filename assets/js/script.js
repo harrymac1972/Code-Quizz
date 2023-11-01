@@ -74,6 +74,7 @@ var mainTitleD = 0;
 var rulesDivD = 0;
 var rulesParD1 = 0;
 var rulesParD2 = 0;
+var questionContainer = 0;
 
 // #endregion
 
@@ -116,6 +117,7 @@ function homePageResets(){
 }
 
 function preInterrogate(){
+    questionContainer.style.display="block";
     mainTitleD.remove();
     rulesDivD.remove();
     startQuizBtnD.remove();
@@ -171,14 +173,14 @@ function refreshQuestion(){
 
 function renderQuestion(){
     questionObj = getQuestionObj();
-    var mainDiv = document.createElement("Div");
-    main.append(mainDiv);
-    mainDiv.setAttribute("id","answersDiv");
+    questionContainer = document.createElement("Div");
+    main.append(questionContainer);
+    questionContainer.setAttribute("id","questConEl");
     mainQuestion = document.createElement("h1");
-    mainDiv.append(mainQuestion);
+    questionContainer.append(mainQuestion);
     mainQuestion.innerText = questionObj["question"];
     var answersList = document.createElement("ul");
-    mainDiv.append(answersList);
+    questionContainer.append(answersList);
     answersArr = questionObj["answers"];
     for(var i=0;i<answersArr.length;i++){
         var btn = document.createElement("btn");
@@ -194,10 +196,10 @@ function renderQuestion(){
     feedbackEl = document.createElement("h2");
     feedbackDiv.append(feedbackEl);
     feedbackDiv.setAttribute("id","feedback-div");
-    mainDiv.append(feedbackDiv);
+    questionContainer.append(feedbackDiv);
     // feedbackEl.innerText = "Initialize!";
     feedbackDiv.style.opacity = 0;
-    answersDiv.addEventListener("click",function(event){
+    questConEl.addEventListener("click",function(event){
         var eventTarget = event.target;
         if (eventTarget.matches(".answer")){
             var answerIx = eventTarget.getAttribute("data-ix");
@@ -214,7 +216,7 @@ function renderQuestion(){
                 refreshQuestion();
             } else {
                 setTimeout(() => {
-                    mainDiv.remove();
+                    questionContainer.style.display="none";
                     gameOver();
                 }, 500);
             }
@@ -289,6 +291,11 @@ function handleFormSubmit(event) {
 // #endregion
 
 // #region SCORE BOARD
+
+function preHighScores(){
+    questionContainer.style.display="none";
+    showHighScores();
+}
 
 function showHighScores(){
     highDiv = document.createElement("div");
