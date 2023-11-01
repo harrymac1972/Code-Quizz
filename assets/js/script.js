@@ -54,6 +54,7 @@ var startQuizBtn = document.querySelector("#start-quiz-btn");
 var startQuizBtnD = 0;
 var timerSeconds = 0;
 var timerInterval = 0;
+var bodyEl = document.querySelector("#body");
 var mainEl = document.querySelector("#main");
 var mainTitle = document.querySelector("#main-title");
 var rulesText = document.querySelector("#rules-div");
@@ -290,7 +291,20 @@ function handleFormSubmit(event) {
 
 // #region SCORE BOARD
 
+function clearScores(){
+    localStorage.clear();
+    homePage();
+}
+
+function reinitMain(){
+    mainEl.remove();
+    mainEl = document.createElement("main");
+    bodyEl.appendChild(mainEl);
+
+}
+
 function showHighScores(){
+    reinitMain();
     highDiv = document.createElement("div");
     main.append(highDiv);
     highDiv.setAttribute("id","high-div");
@@ -334,11 +348,6 @@ function showHighScores(){
     clearBtn.innerText = "Clear high scores";
     highBtnDiv.append(clearBtn);
     clearBtn.addEventListener("click",clearScores);
-}
-
-function clearScores(){
-    localStorage.clear();
-    homePage();
 }
 
 // #endregion
