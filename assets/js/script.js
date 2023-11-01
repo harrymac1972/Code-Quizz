@@ -92,7 +92,7 @@ function homePage(){
     rulesParD1 = document.createElement("p");
     rulesParD2 = document.createElement("p");
     rulesParD1.innerText = "Try to answer the following code-related questions within the time limit."
-    rulesParD2.innerText = "Keep in mind that incorrect answers well penalize you score/time by ten seconds!"
+    rulesParD2.innerText = "Keep in mind that incorrect answers well penalize your score/time by ten seconds!"
     mainEl.append(mainTitleD);
     mainEl.append(rulesDivD);
     rulesDivD.append(rulesParD1);
