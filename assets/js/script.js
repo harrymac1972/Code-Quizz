@@ -321,16 +321,21 @@ function showHighScores(){
     
     localStorageString = localStorage.getItem("scoresObj");
     localStorageJSON = JSON.parse(localStorageString);
-    localArr = localStorageJSON["scoresArr"];
-    var uHighList = document.createElement("ul");
-    uHighList.setAttribute("id","scores-ul");
-    highListDiv.append(uHighList);
-    for (i=0;i<localArr.length;i++){
-        var highListItem = document.createElement("li");
-        var initialString = localArr[i]["initialsK"];
-        var scoreString = localArr[i]["scoreK"];
-        highListItem.innerText = initialString + " - " + scoreString;
-        uHighList.append(highListItem);
+    try{
+        localArr = localStorageJSON["scoresArr"];
+        var uHighList = document.createElement("ul");
+        uHighList.setAttribute("id","scores-ul");
+        highListDiv.append(uHighList);
+        for (i=0;i<localArr.length;i++){
+            var highListItem = document.createElement("li");
+            var initialString = localArr[i]["initialsK"];
+            var scoreString = localArr[i]["scoreK"];
+            highListItem.innerText = initialString + " - " + scoreString;
+            uHighList.append(highListItem);
+        }
+    }
+    catch (error) {
+        console.log(error);
     }
 
     highBtnDiv = document.createElement("div");
