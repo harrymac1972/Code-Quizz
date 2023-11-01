@@ -131,11 +131,6 @@ function clockTimer() {
     }
   }
 
-function stopTimer(){
-    clearInterval(timerInterval);
-    timeValue.innerText = timerSeconds;
-}
-
 // #endregion
 
 // #region QUIZZ
@@ -353,6 +348,11 @@ function showHighScores(){
     clearBtn.innerText = "Clear high scores";
     highBtnDiv.append(clearBtn);
     clearBtn.addEventListener("click",clearScores);
+}
+
+function stopTimer(){
+    clearInterval(timerInterval);
+    timeValue.innerText = timerSeconds;
 }
 
 // #endregion
