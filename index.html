@@ -8,14 +8,21 @@
 </head>
 <body>
     <header>
-        <a id="high-scores-link" href="#high-scores">View high scores</a>
+        <!-- <a id="high-scores-link" href="#high-scores">View high scores</a> -->
+        <a id="high-scores-link" href="#" onclick="showHighScores();">View high scores</a>
         <div id="timer">
-            <span id="timeLabel">Time: </span>
-            <span id="timeValue">0</span>
+            <span id="time-label">Time: </span>
+            <span id="time-value"></span>
         </div>
     </header>
-
-
+    <main id="main">
+        <h1 id="main-title">Coding Quiz Challenge</h1>
+        <div id="rules-div">
+            <p>Try to answer the following code-related questions within the time limit.</p>
+            <p>Keep in mind that incorrect answers well penalize you score/time by ten seconds!</p>
+        </div>
+        <btn id="start-quiz-btn">Start Quiz</btn>
+    </main>    
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
