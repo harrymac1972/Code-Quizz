@@ -54,6 +54,7 @@ var startQuizBtn = document.querySelector("#start-quiz-btn");
 var startQuizBtnD = 0;
 var timerSeconds = 0;
 var timerInterval = 0;
+var bodyEl = document.querySelector("#body");
 var mainEl = document.querySelector("#main");
 var mainTitle = document.querySelector("#main-title");
 var rulesText = document.querySelector("#rules-div");
@@ -122,7 +123,7 @@ function preInterrogate(){
     interrogate();
 }
 
-function startTimer() {
+function clockTimer() {
     timerSeconds--;
     timeValue.innerText = timerSeconds;
     if (timerSeconds <= 0) {
@@ -153,7 +154,7 @@ function interrogate(){
     rulesText.remove();
     startQuizBtn.remove();
     renderQuestion();
-    timerInterval = setInterval(startTimer, 1000);
+    timerInterval = setInterval(clockTimer, 1000);
 }
 
 function refreshQuestion(){
@@ -172,7 +173,7 @@ function refreshQuestion(){
 function renderQuestion(){
     questionObj = getQuestionObj();
     var mainDiv = document.createElement("Div");
-    main.append(mainDiv);
+    mainEl.append(mainDiv);
     mainDiv.setAttribute("id","answersDiv");
     mainQuestion = document.createElement("h1");
     mainDiv.append(mainQuestion);
@@ -229,9 +230,9 @@ function renderQuestion(){
 
 function gameOver(){
     userScore = timerSeconds;
-    clearInterval(timerInterval);
+    stopTimer();
     scoreDiv = document.createElement("div");
-    main.append(scoreDiv);
+    mainEl.append(scoreDiv);
     scoreDiv.setAttribute("id","score-div");
     mainTitle = document.createElement("h1");
     scoreDiv.append(mainTitle);
@@ -290,16 +291,29 @@ function handleFormSubmit(event) {
 
 // #region SCORE BOARD
 
+function clearScores(){
+    localStorage.clear();
+    homePage();
+}
+
+function reInitMain(){
+    mainEl.remove();
+    mainEl = document.createElement("main");
+    bodyEl.append(mainEl);
+}
+
 function showHighScores(){
+    stopTimer();
+    reInitMain();
     highDiv = document.createElement("div");
-    main.append(highDiv);
+    mainEl.append(highDiv);
     highDiv.setAttribute("id","high-div");
     mainTitle = document.createElement("h1");
     highDiv.append(mainTitle);
     mainTitle.innerText = "High Scores";
 
     highListDiv = document.createElement("div");
-    main.append(highListDiv);
+    mainEl.append(highListDiv);
     highListDiv.setAttribute("id","high-list-div");
     var listing = document.createElement("h3");
 
@@ -307,20 +321,25 @@ function showHighScores(){
     
     localStorageString = localStorage.getItem("scoresObj");
     localStorageJSON = JSON.parse(localStorageString);
-    localArr = localStorageJSON["scoresArr"];
-    var uHighList = document.createElement("ul");
-    uHighList.setAttribute("id","scores-ul");
-    highListDiv.append(uHighList);
-    for (i=0;i<localArr.length;i++){
-        var highListItem = document.createElement("li");
-        var initialString = localArr[i]["initialsK"];
-        var scoreString = localArr[i]["scoreK"];
-        highListItem.innerText = initialString + " - " + scoreString;
-        uHighList.append(highListItem);
+    try{
+        localArr = localStorageJSON["scoresArr"];
+        var uHighList = document.createElement("ul");
+        uHighList.setAttribute("id","scores-ul");
+        highListDiv.append(uHighList);
+        for (i=0;i<localArr.length;i++){
+            var highListItem = document.createElement("li");
+            var initialString = localArr[i]["initialsK"];
+            var scoreString = localArr[i]["scoreK"];
+            highListItem.innerText = initialString + " - " + scoreString;
+            uHighList.append(highListItem);
+        }
+    }
+    catch (error) {
+        console.log(error);
     }
 
     highBtnDiv = document.createElement("div");
-    main.append(highBtnDiv);
+    mainEl.append(highBtnDiv);
     highBtnDiv.setAttribute("id","high-btn-div");
 
     var goBackBtn = document.createElement("btn");
@@ -336,9 +355,9 @@ function showHighScores(){
     clearBtn.addEventListener("click",clearScores);
 }
 
-function clearScores(){
-    localStorage.clear();
-    homePage();
+function stopTimer(){
+    clearInterval(timerInterval);
+    timeValue.innerText = timerSeconds;
 }
 
 // #endregion
